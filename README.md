@@ -8,15 +8,15 @@ The good news is, you are not alone. Shortening the boarding time on an airplane
 
 In this project, we will implement a new strategy with a brand new approach, based on Jason Steffen's work, Optimal boarding method for airline passengers<ref>http://home.fnal.gov/~jsteffen/airplanes.html</ref>. A strategy, that will not only reduce the cost for airline companies, but that will also make you happy.
 
-== Motivation ==
+### Motivation
 A plane on the ground, doesn't bring money. We pay for the trip, no matter how long the plane stays on ground before taking off. It is estimated that every minutes a plane spends on ground, represents a loss of 40 USD for the company, according to the Airlines of America organisation <ref>http://www.airlines.org/Pages/Annual-and-Per-Minute-Cost-of-Delays-to-U.S.-Airlines.aspx</ref>. In that sence, reducing the time a plane needs on ground, is an interesting issue for airline companies, since it allows the plane to make more trips per time unit. A plane needs to spend some time on ground for various reasons, such as reloading food, fuel, cleaning, unloading/loading luggages, and most importantly, boarding of passengers. Even though some of these tasks can be realized parallely, studies shows that the boarding time of passengers represent around 60% (up to 40 minutes) of the total time volume a plane spends on ground. At the same time, it is the most compressible task, compared to the others. Reducing this boarding time by a factor ofeven 30% would save millions of EUR, given the large amount of flights and planes an average company possesses.
 
-== Idea of the solution ==
+### Idea of the solution
 We will implement a simple simulation of the boarding process, and compare the time cost of different strategies. The idea is to get a strategy close to the time-optimal solution proposed by Steffen, but slightly modified to take account of the client satisfaction.
 
 =Approach=
 
-== Jason Steffen's Work (1) ==
+### Jason Steffen's Work (1) 
 Jason Steffen, in his work, found through a Monte-Carlo simulation the theoretical optimal boarding strategy. Let us briefly discuss it. 
 
 Intuitively, we might think that the easy way to optimize the boarding process would be to board the passengers from the rear to the front. That way, it seems like no one would block the way of any passengers in the aisle. It turns out that, letting the passengers board exactly from the last row till the front row, is one of the worst boarding strategy in terms of time. The reason for this is as follows: the boarding speed actually depends on the number of people who are loading their luggage ''simultaneoustly'', at a given time. In fact, by letting all the passengers in the back row board and so on, we can easily see that at any given point, there are actually one, at most two passengers who can simultaneously load their luggage. If two people of the same row follow each other, the one behind has to indeed wait for the one in front to load his luggage and sit, before he can proceed the same. Hence, if the average loading time of luggage + sitting time is ''M'', the whole boarding process of ''N'' passengers could take a time up to ''N*M''. Steffen actually showed that this back-to-front method, though adopted by some companies, is actually worse than a simple free-for-all random model where passengers board without any strategy. These companies are literally investing more to lose more time.
@@ -97,7 +97,7 @@ sortPass = temp;
 === Customer Satisfaction ===
 The theoretical optimality of the strategy is obvious and the gain in time is impressive. The drawback of this method is that it is in practice complicated to implement. It requires the airline company to completely sort out the passengers according to their seat, (not by blocks, but by individual seats!), and obviously the customers are not going to want to go through a process which is that "complicated", just to save a few minutes for the airline.
 
-== Jason Steffen's Work (2): Free-For-All ==
+### Jason Steffen's Work (2): Free-For-All ==
 We are going to implement the second of Steffen's publications as well.
 
 He modeled the Free-For-All boarding by assigning a potential to the seats according to their attractivity and the passengers' preferences (resulting in high potentials for window/aisle seats, and a relatively low potential for the middle ones). He then let the people board with different parameters (e.g. laid-backness), and came to the result that even the random boarding is better than the currently used model.
@@ -106,7 +106,7 @@ However, while being one of the fastest boarding methods, it isn't favorable in 
 
 === With assigned seats ===
 
-==== Implementation ====
+##### Implementation ====
 We already get a randomized vector containing the passengers, and we don't even have to sort it this time. We might want to consider groups of people (friends, family), which are sitting together, and are very likely to board together as well.
 
 <source lang="cpp">
@@ -161,7 +161,7 @@ for (int i = 0; i < num; ++i)
 
 In this piece of code, we take the completely random vector with the passengers, and create as many groups consisting of up to three people as we want to. Statistically, about half of the groups consist of only two people, the other half is made up of three passengers.
 
-====Performance====
+#####Performance
 The number of pairs/groups of passengers does not impact the needed boarding time greatly, as seen in the graph below. However, there is an observation to be made. We can see an upwards slope in the "1 bag" and in the "2 bags" curve. The reasoning behind this is that two/three people which are boarding together store their respective luggage right after each other, making all the other passengers currently standing in the aisle wait. This effect takes a bigger impact towards the end, where we have 100 groups/triplets.
 
 [[File:rand_w_grps.PNG|500px|center|thumb|average boarding time from 100 simulations for 100 cases with 4 different parameters]]
@@ -183,7 +183,7 @@ There is only one Airline which is practicing this kind of model. The boarding p
 
 <center>[[File:Boarding_WilMA.gif]]</center>
 
-====Implementation====
+#####Implementation
 <source lang="cpp">
 //sorting passengers according to window/middle/aisle; no grouping, therefore not much faster than randomized
 std::vector<int> num(7);
@@ -209,7 +209,7 @@ for (int i = 0; i < 7; ++i)
 
 [[File:outside_in.gif|500px|center|thumb|Outside in without grouping. (Depending on the browser, you have to click the thumbnail to see the animation)]]
 
-====Performance====
+#####Performance
 The performance of this method isn't terrible, although it's far from optimal. The process is already partly paralellized, but it often occurs that the passengers block each other when someone has to store his luggage. People don't have to stand up again to let other passengers get to their seat, so one of the time-consuming factors is eliminated.
 
 <center>
@@ -235,7 +235,7 @@ For the simulation, implementation, performance and analysis/discussion see Stef
 The rear-to-front method is the most often used boarding method by airlines. First and business class passengers are boarded first. After boarding the "elites", the seats in the back of the plane are filled, followed by the middle section and at last the front area. This boarding method seems to be logical but it was proven as the slowest common used method of all. The problem is that the passengers all clump together, and get in each other’s way, slowing down the whole process.<ref> http://the-flying-carpet.com</ref>
 <center>[[File:reartofront.png|661x661px]]</center><ref>http://www.seatguru.com/articles/boarding_procedures.php#Rear_to_Front</ref>
 
-====Implementation====
+#####Implementation
 <source lang="cpp">
 //existing method
 sortPass = pass;
@@ -274,7 +274,7 @@ sortPass = temp;
 
 [[File:rtf.gif|500px|center|thumb|Standard rear to front boarding method. (Depending on the browser, you have to click the thumbnail to see the animation)]]
 
-====Performance====
+#####Performance
 The performance of this method is extremely interesting, as it's completely counter-intuitive. if we increase the number of groups (up to the number of seats), we observe a '''longer''' boarding phase.
 
 [[File:rtf.PNG|500px|center|thumb|average boarding time from 100 simulations for 10 cases with 3 different parameters]]
@@ -308,10 +308,10 @@ Prior to 2007, Southwest had a very usual method for boarding. They divided the 
 
 Southwest has an online video in which they present the boarding process: https://www.youtube.com/watch?v=X2B7EilM0pk
 
-==== Performance (Needed Time) ====
+##### Performance (Needed Time)
 As mentioned above, Southwest Airline is one of the most profitable airlines in the world '''[citation needed]'''. One of the reasons is that they save a lot of time on the ground'''[citation needed]'''. We already know that Southwest has a very fast boarding system'''[citation needed]'''. But they also have two jetways to bring the passengers as fast as possible from the aircraft'''[citation needed]'''.
 
-==== Customer Satisfaction ====
+##### Customer Satisfaction 
 Southwest Airlines is consistently the airline with the lowest customer complaint rate in the industry'''[citation needed]'''. Maybe because there are three different types of boarding: 
 
 # General boarding (explained above)
@@ -466,7 +466,7 @@ In a first model, we can define the boarding simulation model as follow:
 
 ==Code==
 ===Implementation===
-====Assumptions====
+#####Assumptions
 * A passenger takes one time unit to walk from one row to another.
 * It is not possible to pass/overtake a passenger.
 * It is not possible to pass a person which is storing their bags.
@@ -474,7 +474,7 @@ In a first model, we can define the boarding simulation model as follow:
 * Storing luggage takes a random amount of time between 0 and 10 time units.
 * Sitting down takes (and therefore blocking the aisle) 3 time units per blocking person (e.g. if you have a window seat, but the other two passengers are already sitting, you need 6 time units to sit down).
 
-====Passengers====
+#####Passengers
 The passengers currently have a few characteristics, which are all determined at their creation:
 *the seat number (at first random)
 *their current position
@@ -566,7 +566,7 @@ std::vector<passenger> createPassengers(int n)
 </source>
 This method of mixing up does not give us a completely "random" distribution of the passengers, but the algorithm is guaranteed to finish in a more or less timely manner. It is random enough for us, as we mostly sort them later on anyways.
 
-====Boarding====
+#####Boarding
 For the boarding-process, the passengers are first put into their corresponding aisle (in the currently implemented plane, everyone goes to the one in the middle). After that, they begin to move forward, checking every row if they have to sit down here. If not, they just continue walking, if yes, they first store their luggage, and check if it's possible for them to sit down. In case they are the first passenger in their part of the row, they sit down, in the other case, they continue to block the aisle while waiting to sit down.
 
 <source lang="cpp">
@@ -635,7 +635,7 @@ int board(std::vector<std::vector<int>> &plane, std::vector<passenger> &pass)
 }
 </source>
 
-====Output====
+#####Output
 At the moment, the only output is the number of time-steps needed for the complete boarding (until everyone sits at the right place). However, it is possible to get different outputs like the number of people currently waiting, a "map" of the plane (where people are sitting, where people are standing).
 
 '''Map:'''
@@ -651,7 +651,7 @@ Example of random boarding (after 50 timesteps):
 </center>
  0: Empty seat; 1: Empty aisle; 2: full aisle; 3: full seat.
 
-====ToDo====
+#####ToDo
 * Implementing the missing algorithms
 *Analyzing (and adjusting) the timesteps for the different movements.
 *Extending the code to different plane-layouts (should mostly work already).
