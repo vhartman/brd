@@ -314,9 +314,9 @@ As mentioned above, Southwest Airline is one of the most profitable airlines in 
 ##### Customer Satisfaction 
 Southwest Airlines is consistently the airline with the lowest customer complaint rate in the industry'''[citation needed]'''. Maybe because there are three different types of boarding: 
 
-# General boarding (explained above)
-# Family boarding. If you are travelling with a child which is under four years old you are allowed to board the plane after group A and just before group B. 
-# Line leader boarding. If you want to guarantee that you’ll be one of the first to board. Southwest calls it "Business select" or "Early Bird Check-in" [https://www.southwest.com/html/travel-experience/boarding-your-flight/]
+* General boarding (explained above)
+* Family boarding. If you are travelling with a child which is under four years old you are allowed to board the plane after group A and just before group B. 
+* Line leader boarding. If you want to guarantee that you’ll be one of the first to board. Southwest calls it "Business select" or "Early Bird Check-in" [https://www.southwest.com/html/travel-experience/boarding-your-flight/]
 
 //What is the reasoning behind the above? This whole piece needs to be rewritten badly. It is filled with random statements that have no evidence to back it up (read: lacking citations all around) and it is poorly formulated in general. I've tried moving it to the Talks page, but apparently that wasn't ok? Can you at least try to fix this then?
 
