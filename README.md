@@ -416,7 +416,7 @@ The results are (not very surprisingly) similar (not exactly due to the randomne
 
 #### Customer Satisfaction 
 
-=Simulation=
+##Simulation
 
 ###Objective
 The primary objective of the simulation is to compare different boarding strategies, to have an idea of which strategy is optimal (qualitative), and by around how much it is better (quantitative). 
