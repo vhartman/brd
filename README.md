@@ -30,7 +30,7 @@ Here is the technical detail of this optimal strategy. Let us consider an airpla
 The sorting algortihm is esentially the same as the on used for our block-method, just with a hardcoded amount of groups (the same as the number of rows).
 
 We first sort the people according to their seat (window/middle/asile). Then, we go through every seat-column, compare their row, and switch them in case the necessary requirement is fulfilled.
-<source lang="cpp">
+```C++
 //STEFFEN
 std::vector<int> num(7);
 num[0] = 0;
@@ -90,7 +90,7 @@ for (int j = 0; j < 6; ++j)
 	}
 }
 sortPass = temp;
-</source>
+```
 
 [[File:steffen_optimal.gif|500px|center|thumb|Steffens first method shows the optimal way to board. Notice that there isn't a orange passenger ever. (Depending on the browser, you have to click the thumbnail to see the animation)]]
 
@@ -109,7 +109,7 @@ However, while being one of the fastest boarding methods, it isn't favorable in 
 ##### Implementation
 We already get a randomized vector containing the passengers, and we don't even have to sort it this time. We might want to consider groups of people (friends, family), which are sitting together, and are very likely to board together as well.
 
-<source lang="cpp">
+```C++
 //Free for all: making small "groups" of families/friends
 //randomly choosing passengers and adding their neighbour as the next boarding person
 sortPass = pass;
@@ -157,7 +157,7 @@ for (int i = 0; i < num; ++i)
 		}
 	}
 }
-</source>
+```
 
 In this piece of code, we take the completely random vector with the passengers, and create as many groups consisting of up to three people as we want to. Statistically, about half of the groups consist of only two people, the other half is made up of three passengers.
 
@@ -184,7 +184,7 @@ There is only one Airline which is practicing this kind of model. The boarding p
 <center>[[File:Boarding_WilMA.gif]]</center>
 
 #####Implementation
-<source lang="cpp">
+```C++
 //sorting passengers according to window/middle/aisle; no grouping, therefore not much faster than randomized
 std::vector<int> num(7);
 num[0] = 0;
@@ -205,7 +205,7 @@ for (int i = 0; i < 7; ++i)
 	if (i == 2)
 		++i;
 }
-</source>
+```
 
 [[File:outside_in.gif|500px|center|thumb|Outside in without grouping. (Depending on the browser, you have to click the thumbnail to see the animation)]]
 
@@ -236,7 +236,7 @@ The rear-to-front method is the most often used boarding method by airlines. Fir
 <center>[[File:reartofront.png|661x661px]]</center><ref>http://www.seatguru.com/articles/boarding_procedures.php#Rear_to_Front</ref>
 
 #####Implementation
-<source lang="cpp">
+```C++
 //existing method
 sortPass = pass;
 
@@ -270,7 +270,7 @@ for (int i = 0; i < sortPass.size(); ++i)
 	temp[i] = sortPass[sortPass.size()-1-i];
 }
 sortPass = temp;
-</source>
+```
 
 [[File:rtf.gif|500px|center|thumb|Standard rear to front boarding method. (Depending on the browser, you have to click the thumbnail to see the animation)]]
 
@@ -392,7 +392,7 @@ However, this leaves us with the problem that people (families, friends) want to
 * If we forced the groups to board first, we could place them optimally. They would still disturb the ideal boarding process slightly, but less than they would if they boarded in the middle of the process.
 
 The following code assigns the incoming passengers the seating place that corresponds to Steffen ideal boarding method (ignoring any grouping wishes):
-<source lang="cpp">
+```C++
 sortPass = pass;
 
 int rows = round(sortPass.size() / 6.0);
@@ -411,7 +411,7 @@ for (int i = 0; i < pass.size(); ++i)
 	int seat = 40 + sortPass.size() - num[i/rows] - (i%40)*7 - 1;
 	sortPass[i].assignSeat(seat);
 }
-</source>
+```
 The results are (not very surprisingly) similar (not exactly due to the randomness of the luggage-storing-time) to the ones of the ideal boarding method. No graph needed here.
 
 #### Customer Satisfaction 
@@ -481,7 +481,7 @@ The passengers currently have a few characteristics, which are all determined at
 *the time they need to store their luggage
 *their current status (sitting or not)
 
-<source lang="cpp">
+```C++
 class passenger
 {
 public:
@@ -524,10 +524,10 @@ private:
 	bool luggage;
 	bool isSitting;
 };
-</source>
+```
 The passengers are all generated in order, and are therefore still ordered in the beginning. Later on, we shuffle them, and rearrange them according to our boarding method.
 
-<source lang="cpp">
+```C++
 std::vector<passenger> createPassengers(int n)
 {
 	std::vector<passenger> pass;
@@ -563,13 +563,13 @@ std::vector<passenger> createPassengers(int n)
  
 	return pass_rand;
 }
-</source>
+```
 This method of mixing up does not give us a completely "random" distribution of the passengers, but the algorithm is guaranteed to finish in a more or less timely manner. It is random enough for us, as we mostly sort them later on anyways.
 
 #####Boarding
 For the boarding-process, the passengers are first put into their corresponding aisle (in the currently implemented plane, everyone goes to the one in the middle). After that, they begin to move forward, checking every row if they have to sit down here. If not, they just continue walking, if yes, they first store their luggage, and check if it's possible for them to sit down. In case they are the first passenger in their part of the row, they sit down, in the other case, they continue to block the aisle while waiting to sit down.
 
-<source lang="cpp">
+```C++
 int board(std::vector<std::vector<int>> &plane, std::vector<passenger> &pass)
 {
 	int timer = 0;
@@ -633,7 +633,7 @@ int board(std::vector<std::vector<int>> &plane, std::vector<passenger> &pass)
 
 	return timer;
 }
-</source>
+```
 
 #####Output
 At the moment, the only output is the number of time-steps needed for the complete boarding (until everyone sits at the right place). However, it is possible to get different outputs like the number of people currently waiting, a "map" of the plane (where people are sitting, where people are standing).
@@ -667,7 +667,7 @@ The visualization of the boarding process is color-coded after the following rul
 * orange: passenger waiting for people sitting in his way to get up
 * yellow: sitting passengers
 
-<source lang="cpp">
+```Processing
 import gifAnimation.*;
 
 GifMaker gifExport;
@@ -743,7 +743,7 @@ void mousePressed() {
     gifExport.finish();                 // write file
 }
 
-</source>
+```
 
 ###Example
 The following gif shows the boarding process without sorting the passengers beforehand.
