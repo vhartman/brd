@@ -212,7 +212,7 @@ for (int i = 0; i < 7; ++i)
 #####Performance
 The performance of this method isn't terrible, although it's far from optimal. The process is already partly paralellized, but it often occurs that the passengers block each other when someone has to store his luggage. People don't have to stand up again to let other passengers get to their seat, so one of the time-consuming factors is eliminated.
 
-<center>
+```
  0 0 3 3 0 3 3 0 3 0 3 3 0 0 0 3 3 0 0 0 3 3 3 0 3 0 0 0 0 0 3 0 0 0 0 3 0 0 0 0
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -220,7 +220,7 @@ The performance of this method isn't terrible, although it's far from optimal. T
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-</center>
+```
 
 How the plane looks after 50 timesteps is to be expected if we take the points from above into consideration.
 
@@ -332,7 +332,7 @@ This method keeps the organisation needed beforehand to a minimum, while still u
 As we have completely randomized passengers in the vector, we have to order them after their "column" first (window/aisle/middle), and then divide them into 3 groups according to their seating row.
 
 ####Performance (Needed Time)
-<center>
+```
  0 3 3 3 0 0 0 3 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 3 3 3 0 0 0 0 0 0
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -340,7 +340,7 @@ As we have completely randomized passengers in the vector, we have to order them
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0
-</center>
+```
 The plane after the first 50 timesteps looks surprisingly similar to the Outside-In method. There aren't much more people sitting, but there are many people coming in in big blocks to sit down. It is especially remarkably that the window seats fill up extremely fast after some ramp-up time.
 
 In the following graph, the relation between the number of groups the passengers are separated into, and the needed boarding time is shown for 3 different cases:
@@ -358,7 +358,7 @@ In the ideal case, the slope of the graph is extremely small, as even big groups
 * Assuming we have only two passengers  which are seated in the first two rows, we get the following patterns for the boarding process, depending on how they board the plane (only the first two rows are shown here):
 **Case 1: Passenger 1 has the seat number 7, passenger 2 has the seat number 0
 **Case 2: Passenger 1 has the seat number 0, passenger 2 has the seat number 7
-<center>
+```
  Case 1:         Case 2:
  00  00  00  |  00  00  00  00
  00  00  00  |  00  00  00  00
@@ -367,7 +367,7 @@ In the ideal case, the slope of the graph is extremely small, as even big groups
  00  00  00  |  00  00  00  00
  00  00  00  |  00  00  00  00
  00  00  33  |  00  30  30  33
-</center>
+```
 
 In the first case, the two passengers need three timesteps to get to their respective places. In the second one, four are needed. This can be extended to the complete plane with 240 seats/passengers.
 
@@ -640,7 +640,7 @@ At the moment, the only output is the number of time-steps needed for the comple
 
 '''Map:'''
 Example of random boarding (after 50 timesteps):
-<center>
+```
  0 0 0 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 3 3 0 0 0 0 0 0 0 0 0 0 3 0 0 0 3 0 0 0
  3 3 0 0 0 0 0 0 0 0 3 0 0 3 0 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3
  0 3 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -648,7 +648,7 @@ Example of random boarding (after 50 timesteps):
  0 0 0 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
  0 0 0 0 0 3 0 0 0 3 0 0 0 0 0 0 0 3 0 3 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0 0
  0 3 0 0 0 0 0 0 0 3 0 0 3 0 0 0 0 0 0 3 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0 0
-</center>
+```
  0: Empty seat; 1: Empty aisle; 2: full aisle; 3: full seat.
 
 #####ToDo
