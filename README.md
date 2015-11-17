@@ -14,7 +14,7 @@ A plane on the ground, doesn't bring money. We pay for the trip, no matter how l
 ### Idea of the solution
 We will implement a simple simulation of the boarding process, and compare the time cost of different strategies. The idea is to get a strategy close to the time-optimal solution proposed by Steffen, but slightly modified to take account of the client satisfaction.
 
-=Approach=
+##Approach
 
 ### Jason Steffen's Work (1) 
 Jason Steffen, in his work, found through a Monte-Carlo simulation the theoretical optimal boarding strategy. Let us briefly discuss it. 
