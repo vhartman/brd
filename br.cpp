@@ -279,7 +279,7 @@ std::vector<passenger> sortPassengers(std::vector<passenger> pass, std::vector<s
 			temp[i] = sortPass[sortPass.size()-1-i];
 		}
 		sortPass = temp;
-		
+
 	}
 	else if (method == 3)
 	{
